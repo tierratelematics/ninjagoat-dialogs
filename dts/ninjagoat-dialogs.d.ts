@@ -5,6 +5,7 @@ import {IModule} from "ninjagoat";
 import {IKernelModule} from "inversify";
 import {IViewModelRegistry} from "ninjagoat";
 import {IServiceLocator} from "ninjagoat";
+import * as React from "react";
 
 declare module NinjagoatDialogs {
 
@@ -45,6 +46,47 @@ declare module NinjagoatDialogs {
 
         register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void;
     }
+
+    class DialogConfig {
+        open:boolean;
+        type:DialogType;
+        key:string;
+        message:string;
+        title:string;
+
+        constructor(type, message);
+    }
+
+    enum DialogType {
+        Alert,
+        Confirm,
+        Custom
+    }
+
+    export class NinjagoatDialogComponent extends React.Component<{ dialogService:NinjagoatDialogService }, DialogConfig> {
+        render();
+    }
+
+    export class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogConfig> {
+
+        observe(observable:Rx.IObservable<DialogStatus>);
+
+        alert(message:string, title?:string):Rx.IPromise<DialogStatus>;
+
+        confirm(message:string, title?:string):Rx.IPromise<DialogStatus>;
+
+        display(key:string, message:string, title?:string):Rx.IPromise<DialogStatus>;
+
+        subscribe(observer:Rx.IObserver<DialogConfig>):Rx.IDisposable
+        subscribe(onNext?:(value:DialogConfig) => void, onError?:(exception:any) => void, onCompleted?:() => void):Rx.IDisposable
+        subscribe(observerOrOnNext?:(Rx.IObserver<DialogConfig>) | ((value:DialogConfig) => void), onError?:(exception:any) => void, onCompleted?:() => void):Rx.IDisposable;
+    }
+
+    interface RegistrationKeysStatic {
+        Simple_Dialog:string;
+    }
+
+    export var RegistrationKeys:RegistrationKeysStatic;
 }
 
 export = NinjagoatDialogs;
