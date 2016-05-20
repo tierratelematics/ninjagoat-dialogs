@@ -4,6 +4,11 @@ export class DialogConfig {
     key:string;
     message:string;
     title:string;
+
+    constructor(type, message) {
+        this.type = type;
+        this.message = message;
+    }
 }
 
 export enum DialogType {

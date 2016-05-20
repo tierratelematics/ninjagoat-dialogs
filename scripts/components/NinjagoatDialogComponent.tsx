@@ -1,31 +1,39 @@
 import * as React from "react";
 import {Modal} from "react-bootstrap";
 import NinjagoatDialogService from "./NinjagoatDialogService";
+import * as Rx from "rx";
+import DialogStatus from "../DialogStatus";
+import {DialogConfig} from "../DialogConfig";
+import {Button} from "react-bootstrap";
 
-class NinjagoatDialogComponent extends React.Component<{ dialogService:NinjagoatDialogService }, any> {
+class NinjagoatDialogComponent extends React.Component<{ dialogService:NinjagoatDialogService }, DialogConfig> {
+
+    subject = new Rx.Subject<DialogStatus>();
 
     render() {
         return (
-            <Modal show={this.state.showModal} onHide={this.close}>
+            <Modal show={this.state.open} onHide={this.closeDialog}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>{this.state.title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <h4>Text in a modal</h4>
+                    {this.state.message}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={this.close}>Close</Button>
+                    <Button onClick={this.closeDialog}>Close</Button>
                 </Modal.Footer>
             </Modal>
         )
     }
 
-    componentWillMount():void {
-        
+    private closeDialog() {
+        this.setState(_.merge(this.state, {open: false}));
+        this.subject.onNext(DialogStatus.Confirmed);
     }
 
-    componentWillReceiveProps(nextProps:{ dialogService:NinjagoatDialogService }, nextContext:any):void {
-
+    componentWillMount():void {
+        this.props.dialogService.subscribe(config => this.setState(config));
+        this.props.dialogService.observe(this.subject);
     }
 }
 
