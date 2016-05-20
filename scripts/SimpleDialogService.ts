@@ -1,4 +1,4 @@
-import IDialogService from "./IDialogService";
+import IDialogService from "./interfaces/IDialogService";
 import * as Promise from "bluebird";
 import DialogStatus from "./DialogStatus";
 

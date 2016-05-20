@@ -1,6 +1,6 @@
 import {IModule} from "ninjagoat";
 import {IKernel, IKernelModule} from "inversify";
-import IDialogService from "./IDialogService";
+import IDialogService from "./interfaces/IDialogService";
 import SimpleDialogService from "./SimpleDialogService";
 import {IViewModelRegistry} from "ninjagoat";
 import {IServiceLocator} from "ninjagoat";

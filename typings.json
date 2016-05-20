@@ -9,6 +9,7 @@
         "node": "registry:dt/node#4.0.0+20160505172921",
         "react": "registry:dt/react#0.14.0+20160423065914",
         "reflect-metadata": "npm:reflect-metadata/reflect-metadata.d.ts",
+        "retyped-react-bootstrap-tsd-ambient": "npm:retyped-react-bootstrap-tsd-ambient/react-bootstrap.d.ts",
         "rx": "npm:rx/ts/rx.all.d.ts"
     },
     "globalDevDependencies": {
