@@ -63,7 +63,7 @@ declare module NinjagoatDialogs {
         Custom
     }
 
-    export class NinjagoatDialogComponent extends React.Component<{ dialogService:NinjagoatDialogService }, DialogConfig> {
+    export class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogService }, DialogConfig> {
         render();
     }
 

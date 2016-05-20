@@ -5,7 +5,7 @@ export class DialogConfig {
     message:string;
     title:string;
 
-    constructor(type, message) {
+    constructor(type:DialogType, message:string) {
         this.type = type;
         this.message = message;
     }

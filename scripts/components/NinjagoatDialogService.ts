@@ -3,7 +3,9 @@ import DialogStatus from "../DialogStatus";
 import * as Rx from "rx";
 import * as Promise from "bluebird";
 import {DialogConfig, DialogType} from "../DialogConfig";
+import {injectable} from "inversify";
 
+@injectable()
 class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogConfig> {
 
     private subject = new Rx.Subject<DialogConfig>();

@@ -1,7 +1,9 @@
 import IDialogService from "./interfaces/IDialogService";
 import * as Promise from "bluebird";
 import DialogStatus from "./DialogStatus";
+import {injectable} from "inversify";
 
+@injectable()
 class SimpleDialogService implements IDialogService {
 
     alert(message:string, title?:string):Rx.IPromise<DialogStatus> {

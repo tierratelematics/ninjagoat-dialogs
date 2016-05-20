@@ -3,16 +3,21 @@ import {Modal} from "react-bootstrap";
 import NinjagoatDialogService from "./NinjagoatDialogService";
 import * as Rx from "rx";
 import DialogStatus from "../DialogStatus";
-import {DialogConfig} from "../DialogConfig";
+import {DialogConfig, DialogType} from "../DialogConfig";
 import {Button} from "react-bootstrap";
 
-class NinjagoatDialogComponent extends React.Component<{ dialogService:NinjagoatDialogService }, DialogConfig> {
+class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogService }, DialogConfig> {
 
     subject = new Rx.Subject<DialogStatus>();
 
+    constructor(props:{ dialogService:NinjagoatDialogService }) {
+        super(props);
+        this.state = new DialogConfig(DialogType.Alert, "");
+    }
+
     render() {
         return (
-            <Modal show={this.state.open} onHide={this.closeDialog}>
+            <Modal show={this.state.open} onHide={this.closeDialog.bind(this)}>
                 <Modal.Header closeButton>
                     <Modal.Title>{this.state.title}</Modal.Title>
                 </Modal.Header>
@@ -20,7 +25,7 @@ class NinjagoatDialogComponent extends React.Component<{ dialogService:Ninjagoat
                     {this.state.message}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={this.closeDialog}>Close</Button>
+                    <Button onClick={this.closeDialog.bind(this)}>Close</Button>
                 </Modal.Footer>
             </Modal>
         )
@@ -37,4 +42,4 @@ class NinjagoatDialogComponent extends React.Component<{ dialogService:Ninjagoat
     }
 }
 
-export default NinjagoatDialogComponent
+export default NinjagoatDialog
