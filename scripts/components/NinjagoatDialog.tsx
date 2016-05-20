@@ -16,19 +16,6 @@ class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogSer
     }
 
     render() {
-        let confirmButton = <Button onClick={this.confirmDialog.bind(this)}>Yes</Button>;
-        let okButton = <Button onClick={this.confirmDialog.bind(this)}>Ok</Button>;
-        let rejectButton = <Button onClick={this.rejectDialog.bind(this)}>No</Button>;
-        let footer;
-        if (this.state.type === DialogType.Alert)
-            footer = <Modal.Footer>
-                {okButton}
-            </Modal.Footer>;
-        else
-            footer = <Modal.Footer>
-                {confirmButton}
-                {rejectButton}
-            </Modal.Footer>;
         return (
             <Modal show={this.state.open} onHide={this.closeDialog.bind(this)}>
                 <Modal.Header closeButton>
@@ -37,7 +24,13 @@ class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogSer
                 <Modal.Body>
                     {this.state.message}
                 </Modal.Body>
-                {footer}
+                <Modal.Footer>
+                    { this.state.type === DialogType.Alert
+                        ?  <Button onClick={this.confirmDialog.bind(this)}>Ok</Button>
+                        : <div><Button onClick={this.confirmDialog.bind(this)}>Yes</Button>
+                        <Button onClick={this.rejectDialog.bind(this)}>No</Button></div>
+                    }
+                </Modal.Footer>
             </Modal>
         )
     }
