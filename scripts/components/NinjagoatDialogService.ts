@@ -6,9 +6,9 @@ import {DialogConfig, DialogType} from "../DialogConfig";
 import {injectable} from "inversify";
 
 @injectable()
-class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogConfig> {
+class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogConfig<any>> {
 
-    private subject = new Rx.Subject<DialogConfig>();
+    private subject = new Rx.Subject<DialogConfig<any>>();
     private observable:Rx.IObservable<DialogStatus>;
 
     observe(observable:Rx.IObservable<DialogStatus>) {
@@ -23,14 +23,16 @@ class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogCon
         return this.setupDialog(DialogType.Confirm, message, title);
     }
 
-    display(key:string, message:string, title?:string):Rx.IPromise<DialogStatus> {
-        throw new Error("Not implemented");
+    display(key:string, data:any, message:string, title?:string):Rx.IPromise<DialogStatus> {
+        return this.setupDialog(DialogType.Custom, message, title, data, key);
     }
 
-    private setupDialog(type:DialogType, message:string, title?:string):Rx.IPromise<DialogStatus> {
-        let config = new DialogConfig(type, message);
+    private setupDialog(type:DialogType, message:string, title?:string, data?:any, key?:string):Rx.IPromise<DialogStatus> {
+        let config = new DialogConfig<any>(type, message);
         config.title = title;
         config.open = true;
+        config.data = data;
+        config.key = key;
         this.subject.onNext(config);
         return new Promise((resolve, reject) => {
             if (this.observable)
@@ -40,9 +42,9 @@ class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogCon
         });
     }
 
-    subscribe(observer:Rx.IObserver<DialogConfig>):Rx.IDisposable
-    subscribe(onNext?:(value:DialogConfig) => void, onError?:(exception:any) => void, onCompleted?:() => void):Rx.IDisposable
-    subscribe(observerOrOnNext?:(Rx.IObserver<DialogConfig>) | ((value:DialogConfig) => void), onError?:(exception:any) => void, onCompleted?:() => void):Rx.IDisposable {
+    subscribe(observer:Rx.IObserver<DialogConfig<any>>):Rx.IDisposable
+    subscribe(onNext?:(value:DialogConfig<any>) => void, onError?:(exception:any) => void, onCompleted?:() => void):Rx.IDisposable
+    subscribe(observerOrOnNext?:(Rx.IObserver<DialogConfig<any>>) | ((value:DialogConfig<any>) => void), onError?:(exception:any) => void, onCompleted?:() => void):Rx.IDisposable {
         if (isObserver(observerOrOnNext))
             return this.subject.subscribe(observerOrOnNext);
         else
