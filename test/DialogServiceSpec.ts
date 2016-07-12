@@ -10,7 +10,7 @@ import {DialogConfig, DialogType} from "../scripts/DialogConfig";
 describe("DialogService, given a dialog", () => {
 
     let subject:NinjagoatDialogService,
-        notifications:DialogConfig[];
+        notifications:DialogConfig<any>[];
 
     beforeEach(() => {
         notifications = [];
