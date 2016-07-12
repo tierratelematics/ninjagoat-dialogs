@@ -9,7 +9,7 @@ import IStatusUpdate from "../interfaces/IStatusUpdate";
 import CustomDialog from "./CustomDialog";
 import {Dictionary} from "ninjagoat";
 
-class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogService, templates?:Dictionary<CustomDialog<any>> }, DialogConfig<any>> implements IStatusUpdate {
+class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogService, templates?:Dictionary<new() => CustomDialog<any>> }, DialogConfig<any>> implements IStatusUpdate {
 
     subject = new Rx.Subject<DialogStatus>();
 
