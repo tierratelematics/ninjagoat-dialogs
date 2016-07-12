@@ -6,6 +6,7 @@ import {IKernelModule} from "inversify";
 import {IViewModelRegistry} from "ninjagoat";
 import {IServiceLocator} from "ninjagoat";
 import * as React from "react";
+import {Dictionary} from "ninjagoat";
 
 declare module NinjagoatDialogs {
 
@@ -28,7 +29,7 @@ declare module NinjagoatDialogs {
     }
 
     export interface ICustomDialogService {
-        display(key:string, message:string, title?:string):IPromise<DialogStatus>;
+        display(key:string, data:any, message:string, title?:string):IPromise<DialogStatus>;
     }
 
     export class SimpleDialogService implements IDialogService {
@@ -47,14 +48,15 @@ declare module NinjagoatDialogs {
         register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void;
     }
 
-    class DialogConfig {
+    export class DialogConfig<T> {
         open:boolean;
         type:DialogType;
         key:string;
         message:string;
         title:string;
+        data:T;
 
-        constructor(type, message);
+        constructor(type:DialogType, message:string);
     }
 
     enum DialogType {
@@ -63,11 +65,24 @@ declare module NinjagoatDialogs {
         Custom
     }
 
-    export class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogService }, DialogConfig> {
+    export class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogService, templates?:Dictionary<CustomDialog<any>> }, DialogConfig<any>> implements IStatusUpdate {
+        confirm()
+        reject()
+        cancel()
         render();
     }
 
-    export class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogConfig> {
+    export abstract class CustomDialog<T> extends React.Component<{ dialog:DialogConfig<T>, status:IStatusUpdate }, any> {
+
+    }
+
+    export interface IStatusUpdate {
+        confirm();
+        reject();
+        cancel();
+    }
+
+    export class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogConfig<any>> {
 
         observe(observable:Rx.IObservable<DialogStatus>);
 
@@ -77,9 +92,9 @@ declare module NinjagoatDialogs {
 
         display(key:string, message:string, title?:string):Rx.IPromise<DialogStatus>;
 
-        subscribe(observer:Rx.IObserver<DialogConfig>):Rx.IDisposable
-        subscribe(onNext?:(value:DialogConfig) => void, onError?:(exception:any) => void, onCompleted?:() => void):Rx.IDisposable
-        subscribe(observerOrOnNext?:(Rx.IObserver<DialogConfig>) | ((value:DialogConfig) => void), onError?:(exception:any) => void, onCompleted?:() => void):Rx.IDisposable;
+        subscribe(observer:Rx.IObserver<DialogConfig<any>>):Rx.IDisposable
+        subscribe(onNext?:(value:DialogConfig<any>) => void, onError?:(exception:any) => void, onCompleted?:() => void):Rx.IDisposable
+        subscribe(observerOrOnNext?:(Rx.IObserver<DialogConfig<any>>) | ((value:DialogConfig<any>) => void), onError?:(exception:any) => void, onCompleted?:() => void):Rx.IDisposable;
     }
 
     interface RegistrationKeysStatic {
