@@ -34,7 +34,7 @@ class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogSer
                 <Modal.Footer>
                     { this.state.type === DialogType.Alert
                         ?  <Button onClick={this.confirm.bind(this)}>Ok</Button>
-                        : <div><Button onClick={this.reject.bind(this)}>Yes</Button>
+                        : <div><Button onClick={this.confirm.bind(this)}>Yes</Button>
                         <Button onClick={this.reject.bind(this)}>No</Button></div>
                     }
                 </Modal.Footer>
