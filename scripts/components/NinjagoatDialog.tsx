@@ -11,7 +11,8 @@ import {Dictionary} from "ninjagoat";
 
 class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogService, templates?:Dictionary<new() => CustomDialog<any>> }, DialogConfig<any>> implements IStatusUpdate {
 
-    subject = new Rx.Subject<DialogStatus>();
+    private subscription:Rx.Disposable;
+    private subject = new Rx.Subject<DialogStatus>();
 
     constructor(props:{ dialogService:NinjagoatDialogService }) {
         super(props);
@@ -22,7 +23,7 @@ class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogSer
         let template;
         if (this.state.key) {
             let Dialog = this.props.templates[this.state.key];
-            template = <Dialog dialog={this.state} status={this} />;
+            template = <Dialog dialog={this.state} status={this}/>;
         } else {
             template = <Modal show={this.state.open} onHide={this.cancel.bind(this)}>
                 <Modal.Header closeButton>
@@ -61,8 +62,13 @@ class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogSer
     }
 
     componentWillMount():void {
-        this.props.dialogService.subscribe(config => this.setState(config));
+        this.subscription = this.props.dialogService.subscribe(config => this.setState(config));
         this.props.dialogService.observe(this.subject);
+    }
+
+    componentWillUnmount():void {
+        if (this.subscription) this.subscription.dispose();
+        this.props.dialogService.dispose();
     }
 }
 
