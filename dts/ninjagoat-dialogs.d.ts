@@ -90,7 +90,7 @@ declare module NinjagoatDialogs {
 
         confirm(message:string, title?:string):Rx.IPromise<DialogStatus>;
 
-        display(key:string, message:string, title?:string):Rx.IPromise<DialogStatus>;
+        display(key:string, data:any, message:string, title?:string):Rx.IPromise<DialogStatus>;
 
         subscribe(observer:Rx.IObserver<DialogConfig<any>>):Rx.IDisposable
         subscribe(onNext?:(value:DialogConfig<any>) => void, onError?:(exception:any) => void, onCompleted?:() => void):Rx.IDisposable
