@@ -20,7 +20,7 @@ class SimpleDialogService implements IDialogService {
         });
     }
 
-    display(key:string, message:string, title?:string):Rx.IPromise<DialogStatus> {
+    display(key:string, data:any, message:string, title?:string):Rx.IPromise<DialogStatus> {
         throw new Error("Not implemented");
     }
 

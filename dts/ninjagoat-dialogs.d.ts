@@ -96,12 +96,6 @@ declare module NinjagoatDialogs {
         subscribe(onNext?:(value:DialogConfig<any>) => void, onError?:(exception:any) => void, onCompleted?:() => void):Rx.IDisposable
         subscribe(observerOrOnNext?:(Rx.IObserver<DialogConfig<any>>) | ((value:DialogConfig<any>) => void), onError?:(exception:any) => void, onCompleted?:() => void):Rx.IDisposable;
     }
-
-    interface RegistrationKeysStatic {
-        Simple_Dialog:string;
-    }
-
-    export var RegistrationKeys:RegistrationKeysStatic;
 }
 
 export = NinjagoatDialogs;

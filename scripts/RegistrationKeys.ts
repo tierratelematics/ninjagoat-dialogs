@@ -1,1 +1,0 @@
-export let Simple_Dialog = "Simple_Dialog";
