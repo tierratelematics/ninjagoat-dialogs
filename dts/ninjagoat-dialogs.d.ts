@@ -38,7 +38,7 @@ declare module NinjagoatDialogs {
 
         confirm(message:string, title?:string):Rx.IPromise<DialogStatus>;
 
-        display(key:string, message:string, title?:string):Rx.IPromise<DialogStatus>;
+        display(key:string, data:any, message:string, title?:string):IPromise<DialogStatus>;
     }
 
     export class DialogsModule implements IModule {
