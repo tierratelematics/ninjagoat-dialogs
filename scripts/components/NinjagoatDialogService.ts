@@ -6,9 +6,10 @@ import {DialogConfig, DialogType} from "../DialogConfig";
 import {injectable} from "inversify";
 
 @injectable()
-class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogConfig<any>> {
+class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogConfig<any>>, Rx.IDisposable {
 
     private subject = new Rx.Subject<DialogConfig<any>>();
+    private subscription:Rx.CompositeDisposable = new Rx.CompositeDisposable();
     private observable:Rx.IObservable<DialogStatus>;
 
     observe(observable:Rx.IObservable<DialogStatus>) {
@@ -36,10 +37,15 @@ class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogCon
         this.subject.onNext(config);
         return new Promise((resolve, reject) => {
             if (this.observable)
-                this.observable.subscribe(status => resolve(status));
+                this.subscription.add(this.observable.subscribe(status => resolve(status)));
             else
                 reject(new Error("An observable must be provided in order to listen for dialog actions"));
         });
+    }
+
+    dispose():void {
+        this.subscription.dispose();
+        this.subscription = new Rx.CompositeDisposable();
     }
 
     subscribe(observer:Rx.IObserver<DialogConfig<any>>):Rx.IDisposable
