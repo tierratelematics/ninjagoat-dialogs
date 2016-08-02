@@ -8,6 +8,7 @@ import {Button} from "react-bootstrap";
 import IStatusUpdate from "../interfaces/IStatusUpdate";
 import CustomDialog from "./CustomDialog";
 import {Dictionary} from "ninjagoat";
+import * as _ from "lodash";
 
 class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogService, templates?:Dictionary<new() => CustomDialog<any>> }, DialogConfig<any>> implements IStatusUpdate {
 
