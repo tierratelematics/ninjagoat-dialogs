@@ -23,5 +23,6 @@
   "scripts": {
     "test": "smild test"
   },
-  "main": "dist/ninjagoat-dialogs.js"
+  "main": "dist/ninjagoat-dialogs.js",
+  "typings": "declarations/ninjagoat-dialogs.d.ts"
 }
