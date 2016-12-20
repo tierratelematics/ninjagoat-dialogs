@@ -39,7 +39,7 @@ export class SimpleDialogService implements IDialogService {
 
 export class DialogsModule implements IModule {
 
-    modules: (kernel: interfaces.Kernel) => void;
+    modules: (container: interfaces.Container) => void;
 
     register(registry: IViewModelRegistry, serviceLocator?: IServiceLocator, overrides?: any): void;
 }

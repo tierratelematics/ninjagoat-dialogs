@@ -7,8 +7,8 @@ import NinjagoatDialogService from "./components/NinjagoatDialogService";
 
 class DialogsModule implements IModule {
 
-    modules = (kernel:interfaces.Kernel) => {
-        kernel.bind<IDialogService>("IDialogService").to(NinjagoatDialogService).inSingletonScope();
+    modules = (container:interfaces.Container) => {
+        container.bind<IDialogService>("IDialogService").to(NinjagoatDialogService).inSingletonScope();
     };
 
     register(registry:IViewModelRegistry, serviceLocator?:IServiceLocator, overrides?:any):void {
