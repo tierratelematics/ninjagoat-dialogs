@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import "bluebird";
 import expect = require("expect.js");
-import sinon = require("sinon");
 import Rx = require("rx");
 import NinjagoatDialogService from "../scripts/components/NinjagoatDialogService";
 import DialogStatus from "../scripts/DialogStatus";
