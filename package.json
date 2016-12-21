@@ -1,6 +1,6 @@
 {
   "name": "ninjagoat-dialogs",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "dependencies": {
     "@types/bluebird": "~3.0.36",
     "@types/lodash": "~4.14.44",
@@ -19,7 +19,7 @@
     "expect.js": "~0.3.1"
   },
   "peerDependencies": {
-    "ninjagoat": "^0.14.0"
+    "ninjagoat": "^0.15.0"
   },
   "scripts": {
     "test": "smild test"
