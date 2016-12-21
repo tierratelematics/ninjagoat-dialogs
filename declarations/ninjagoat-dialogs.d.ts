@@ -1,4 +1,4 @@
-import {IPromise} from "rx";
+import {IPromise, IObservable, IObserver, IDisposable} from "rx";
 import {IModule} from "ninjagoat";
 import {interfaces} from "inversify";
 import {IViewModelRegistry} from "ninjagoat";
@@ -30,9 +30,9 @@ export interface ICustomDialogService {
 
 export class SimpleDialogService implements IDialogService {
 
-    alert(message: string, title?: string): Rx.IPromise<DialogStatus>;
+    alert(message: string, title?: string): IPromise<DialogStatus>;
 
-    confirm(message: string, title?: string): Rx.IPromise<DialogStatus>;
+    confirm(message: string, title?: string): IPromise<DialogStatus>;
 
     display(key: string, data: any, message: string, title?: string): IPromise<DialogStatus>;
 }
@@ -55,7 +55,7 @@ export class DialogConfig<T> {
     constructor(type: DialogType, message: string);
 }
 
-enum DialogType {
+declare enum DialogType {
     Alert,
     Confirm,
     Custom
@@ -81,17 +81,17 @@ export interface IStatusUpdate {
     cancel();
 }
 
-export class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogConfig<any>> {
+export class NinjagoatDialogService implements IDialogService, IObservable<DialogConfig<any>> {
 
-    observe(observable: Rx.IObservable<DialogStatus>);
+    observe(observable: IObservable<DialogStatus>);
 
-    alert(message: string, title?: string): Rx.IPromise<DialogStatus>;
+    alert(message: string, title?: string): IPromise<DialogStatus>;
 
-    confirm(message: string, title?: string): Rx.IPromise<DialogStatus>;
+    confirm(message: string, title?: string): IPromise<DialogStatus>;
 
-    display(key: string, data: any, message: string, title?: string): Rx.IPromise<DialogStatus>;
+    display(key: string, data: any, message: string, title?: string): IPromise<DialogStatus>;
 
-    subscribe(observer: Rx.IObserver<DialogConfig<any>>): Rx.IDisposable
-    subscribe(onNext?: (value: DialogConfig<any>) => void, onError?: (exception: any) => void, onCompleted?: () => void): Rx.IDisposable
-    subscribe(observerOrOnNext?: (Rx.IObserver<DialogConfig<any>>) | ((value: DialogConfig<any>) => void), onError?: (exception: any) => void, onCompleted?: () => void): Rx.IDisposable;
+    subscribe(observer: IObserver<DialogConfig<any>>): IDisposable
+    subscribe(onNext?: (value: DialogConfig<any>) => void, onError?: (exception: any) => void, onCompleted?: () => void): IDisposable
+    subscribe(observerOrOnNext?: (IObserver<DialogConfig<any>>) | ((value: DialogConfig<any>) => void), onError?: (exception: any) => void, onCompleted?: () => void): IDisposable;
 }
