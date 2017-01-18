@@ -61,7 +61,7 @@ declare enum DialogType {
     Custom
 }
 
-export class NinjagoatDialog extends React.Component<{dialogService: NinjagoatDialogService, templates?: Dictionary<new() => CustomDialog<any>>}, DialogConfig<any>> implements IStatusUpdate {
+export class NinjagoatDialog extends React.Component<{dialogService: NinjagoatDialogService, templates?: Dictionary<interfaces.Newable<CustomDialog<any>>>}, DialogConfig<any>> implements IStatusUpdate {
     confirm()
 
     reject()
