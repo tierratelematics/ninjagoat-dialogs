@@ -1,7 +1,6 @@
 import IDialogService from "../interfaces/IDialogService";
 import DialogStatus from "../DialogStatus";
 import * as Rx from "rx";
-import * as Promise from "bluebird";
 import {DialogConfig, DialogType} from "../DialogConfig";
 import {injectable} from "inversify";
 
@@ -16,19 +15,19 @@ class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogCon
         this.observable = observable;
     }
 
-    alert(message:string, title?:string):Rx.IPromise<DialogStatus> {
+    alert(message:string, title?:string):Promise<DialogStatus> {
         return this.setupDialog(DialogType.Alert, message, title);
     }
 
-    confirm(message:string, title?:string):Rx.IPromise<DialogStatus> {
+    confirm(message:string, title?:string):Promise<DialogStatus> {
         return this.setupDialog(DialogType.Confirm, message, title);
     }
 
-    display(key:string, data:any, message:string, title?:string):Rx.IPromise<DialogStatus> {
+    display(key:string, data:any, message:string, title?:string):Promise<DialogStatus> {
         return this.setupDialog(DialogType.Custom, message, title, data, key);
     }
 
-    private setupDialog(type:DialogType, message:string, title?:string, data?:any, key?:string):Rx.IPromise<DialogStatus> {
+    private setupDialog(type:DialogType, message:string, title?:string, data?:any, key?:string):Promise<DialogStatus> {
         let config = new DialogConfig<any>(type, message);
         config.title = title;
         config.open = true;
