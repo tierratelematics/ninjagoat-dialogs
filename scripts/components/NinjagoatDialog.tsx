@@ -9,8 +9,9 @@ import IStatusUpdate from "../interfaces/IStatusUpdate";
 import CustomDialog from "./CustomDialog";
 import {Dictionary} from "ninjagoat";
 import * as _ from "lodash";
+import {interfaces} from "inversify";
 
-class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogService, templates?:Dictionary<new() => CustomDialog<any>> }, DialogConfig<any>> implements IStatusUpdate {
+class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogService, templates?:Dictionary<interfaces.Newable<CustomDialog<any>>> }, DialogConfig<any>> implements IStatusUpdate {
 
     private subscription:Rx.Disposable;
     private subject = new Rx.Subject<DialogStatus>();

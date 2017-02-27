@@ -1,8 +1,7 @@
-import {IPromise} from "rx";
 import DialogStatus from "../DialogStatus";
 
 interface IConfirmationService {
-    confirm(message:string,  title?:string):IPromise<DialogStatus>;
+    confirm(message:string,  title?:string):Promise<DialogStatus>;
 }
 
 export default IConfirmationService

@@ -1,15 +1,14 @@
 import "reflect-metadata";
-import "bluebird";
 import expect = require("expect.js");
-import Rx = require("rx");
+import * as Rx from "rx";
 import NinjagoatDialogService from "../scripts/components/NinjagoatDialogService";
 import DialogStatus from "../scripts/DialogStatus";
 import {DialogConfig, DialogType} from "../scripts/DialogConfig";
 
 describe("DialogService, given a dialog", () => {
 
-    let subject:NinjagoatDialogService,
-        notifications:DialogConfig<any>[];
+    let subject: NinjagoatDialogService,
+        notifications: DialogConfig<any>[];
 
     beforeEach(() => {
         notifications = [];
@@ -39,16 +38,15 @@ describe("DialogService, given a dialog", () => {
     });
 
     context("after an action has been performed on it", () => {
-        it("should send back the result", () => {
+        it("should send back the result", async() => {
             subject.observe(Rx.Observable.just(DialogStatus.Confirmed));
-            let promise = subject.alert("Test message");
-            expect((<any>promise).value()).to.be(DialogStatus.Confirmed);
+            let status = await subject.alert("Test message");
+            expect(status).to.be(DialogStatus.Confirmed);
         });
 
         context("but there's no observable registered on the dialog service", () => {
-            it("should throw an error", () => {
-                let promise = subject.alert("Test message");
-                expect((<any>promise).isRejected()).to.be(true);
+            it("should throw an error", (done) => {
+                subject.alert("Test message").catch(error => done());
             });
         });
     });
