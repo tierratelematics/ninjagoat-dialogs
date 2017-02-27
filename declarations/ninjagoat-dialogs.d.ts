@@ -1,4 +1,4 @@
-import {IPromise, IObservable, IObserver, IDisposable} from "rx";
+import {IObservable, IObserver, IDisposable} from "rx";
 import {IModule} from "ninjagoat";
 import {interfaces} from "inversify";
 import {IViewModelRegistry} from "ninjagoat";
@@ -17,24 +17,24 @@ export interface IDialogService extends IAlertService, IConfirmationService, ICu
 }
 
 export interface IAlertService {
-    alert(message: string, title?: string): IPromise<DialogStatus>;
+    alert(message: string, title?: string): Promise<DialogStatus>;
 }
 
 export interface IConfirmationService {
-    confirm(message: string, title?: string): IPromise<DialogStatus>;
+    confirm(message: string, title?: string): Promise<DialogStatus>;
 }
 
 export interface ICustomDialogService {
-    display(key: string, data: any, message: string, title?: string): IPromise<DialogStatus>;
+    display(key: string, data: any, message: string, title?: string): Promise<DialogStatus>;
 }
 
 export class SimpleDialogService implements IDialogService {
 
-    alert(message: string, title?: string): IPromise<DialogStatus>;
+    alert(message: string, title?: string): Promise<DialogStatus>;
 
-    confirm(message: string, title?: string): IPromise<DialogStatus>;
+    confirm(message: string, title?: string): Promise<DialogStatus>;
 
-    display(key: string, data: any, message: string, title?: string): IPromise<DialogStatus>;
+    display(key: string, data: any, message: string, title?: string): Promise<DialogStatus>;
 }
 
 export class DialogsModule implements IModule {
@@ -85,11 +85,11 @@ export class NinjagoatDialogService implements IDialogService, IObservable<Dialo
 
     observe(observable: IObservable<DialogStatus>);
 
-    alert(message: string, title?: string): IPromise<DialogStatus>;
+    alert(message: string, title?: string): Promise<DialogStatus>;
 
-    confirm(message: string, title?: string): IPromise<DialogStatus>;
+    confirm(message: string, title?: string): Promise<DialogStatus>;
 
-    display(key: string, data: any, message: string, title?: string): IPromise<DialogStatus>;
+    display(key: string, data: any, message: string, title?: string): Promise<DialogStatus>;
 
     subscribe(observer: IObserver<DialogConfig<any>>): IDisposable
     subscribe(onNext?: (value: DialogConfig<any>) => void, onError?: (exception: any) => void, onCompleted?: () => void): IDisposable

@@ -1,27 +1,25 @@
 import IDialogService from "./interfaces/IDialogService";
-import * as Promise from "bluebird";
 import DialogStatus from "./DialogStatus";
 import {injectable} from "inversify";
-import {IPromise} from "rx";
 
 @injectable()
 class SimpleDialogService implements IDialogService {
 
-    alert(message:string, title?:string):IPromise<DialogStatus> {
+    alert(message:string, title?:string):Promise<DialogStatus> {
         return new Promise<DialogStatus>(resolve => {
             alert(message);
             resolve(DialogStatus.Confirmed);
         });
     }
 
-    confirm(message:string, title?:string):IPromise<DialogStatus> {
+    confirm(message:string, title?:string):Promise<DialogStatus> {
         return new Promise<DialogStatus>(resolve => {
             if (confirm(message)) resolve(DialogStatus.Confirmed);
             else resolve(DialogStatus.Rejected);
         });
     }
 
-    display(key:string, data:any, message:string, title?:string):IPromise<DialogStatus> {
+    display(key:string, data:any, message:string, title?:string):Promise<DialogStatus> {
         throw new Error("Not implemented");
     }
 
