@@ -1,4 +1,106 @@
-#Ninjagoat-dialogs
+# Ninjagoat-dialogs
+
+A module to display different kinds of dialogs inside a ninjagoat application, with the ability to supply custom templates to customize it even more.
+
+## Installation
+
+`
+$ npm install ninjagoat-dialogs
+`
+
+Add this code to the bootstrapper.ts file:
+
+```typescript
+import {DialogsModule} from "ninjagoat-dialogs"
+
+application.register(new DialogsModule());
+```
+
+Inject into your MasterViewModel a NinjagoatDialogService.
+
+```typescript
+import {NinjagoatDialogService} from "ninjagoat-dialogs";
+
+class MasterViewModel extends ObservableViewModel<MasterModel> {
+    constructor(@inject("IDialogService") public dialogService:NinjagoatDialogService) {
+        
+    }   
+}
+```
+
+And bind the dialog service with its component in the Master view.
+
+```typescript
+import {NinjagoatDialog} from "ninjagoat-dialogs"
+
+class MasterView extends View<MasterViewModel> {
+    
+    render() {
+        <div>
+            {this.props.children}
+            <NinjagoatDialog dialogService={this.viewModel.dialogService} />
+        </div>
+    }
+}
+```
+
+## Usage
+
+To use a confirm dialog you can just do something like this.
+
+```typescript
+import {IDialogService, DialogStatus} from "ninjagoat-dialogs";
+
+let dialogService:IDialogService; //Inject it in a class
+
+let status = await dialogService.confirm("Are you sure you want to do this?");
+if (status === DialogStatus.Confirmed) {
+    //Do the action
+}
+```
+
+### Custom dialogs
+
+To supply a custom dialog to the component write a class that extends CustomDialog.
+
+```typescript
+import {CustomDialog} from "ninjagoat-dialogs";
+import {Modal} from "react-bootstrap";
+
+class MyDialog extends CustomDialog<MyDialogModel> {
+
+    render() {
+        let status = this.props.status;
+        let dialog = this.props.dialog;
+        return (
+            <Modal show={dialog.open} onHide={status.cancel.bind(this.props.status)}>
+              //Build your UI here
+            </Modal>
+        );
+    }
+}
+```
+
+Pass this template to the dialog component.
+
+```typescript
+<NinjagoatDialog dialogService={this.viewModel.dialogService} templates={{
+    "myDialog": MyDialog
+}} />
+```
+
+And use it!
+
+```typescript
+import {IDialogService, DialogStatus} from "ninjagoat-dialogs";
+
+let dialogService:IDialogService; //Inject it in a class
+
+let status = await dialogService.display("myDialog", customData, "Title");
+if (status === DialogStatus.Confirmed) {
+    //Do the action
+}
+```
 
 ## License
 
