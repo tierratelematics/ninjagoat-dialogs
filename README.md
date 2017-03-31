@@ -16,19 +16,7 @@ import {DialogsModule} from "ninjagoat-dialogs"
 application.register(new DialogsModule());
 ```
 
-Inject into your MasterViewModel a NinjagoatDialogService.
-
-```typescript
-import {NinjagoatDialogService} from "ninjagoat-dialogs";
-
-class MasterViewModel extends ObservableViewModel<MasterModel> {
-    constructor(@inject("IDialogService") public dialogService:NinjagoatDialogService) {
-        
-    }   
-}
-```
-
-And bind the dialog service with its component in the Master view.
+Add a ninjagoat dialog to the Master view.
 
 ```typescript
 import {NinjagoatDialog} from "ninjagoat-dialogs"
@@ -38,7 +26,7 @@ class MasterView extends View<MasterViewModel> {
     render() {
         <div>
             {this.props.children}
-            <NinjagoatDialog dialogService={this.viewModel.dialogService} />
+            <NinjagoatDialog />
         </div>
     }
 }
@@ -84,7 +72,7 @@ class MyDialog extends CustomDialog<MyDialogModel> {
 Pass this template to the dialog component.
 
 ```typescript
-<NinjagoatDialog dialogService={this.viewModel.dialogService} templates={{
+<NinjagoatDialog templates={{
     "myDialog": MyDialog
 }} />
 ```

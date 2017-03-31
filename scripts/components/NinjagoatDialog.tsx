@@ -7,16 +7,18 @@ import {DialogConfig, DialogType} from "../DialogConfig";
 import {Button} from "react-bootstrap";
 import IStatusUpdate from "../interfaces/IStatusUpdate";
 import CustomDialog from "./CustomDialog";
-import {Dictionary} from "ninjagoat";
+import {Dictionary, lazyInject} from "ninjagoat";
 import * as _ from "lodash";
 import {interfaces} from "inversify";
 
-class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogService, templates?:Dictionary<interfaces.Newable<CustomDialog<any>>> }, DialogConfig<any>> implements IStatusUpdate {
+class NinjagoatDialog extends React.Component<{ templates?:Dictionary<interfaces.Newable<CustomDialog<any>>> }, DialogConfig<any>> implements IStatusUpdate {
 
+    @lazyInject("IDialogService")
+    private dialogService:NinjagoatDialogService;
     private subscription:Rx.Disposable;
     private subject = new Rx.Subject<DialogStatus>();
 
-    constructor(props:{ dialogService:NinjagoatDialogService }) {
+    constructor(props:{ templates?:Dictionary<interfaces.Newable<CustomDialog<any>>> }) {
         super(props);
         this.state = new DialogConfig<any>(DialogType.Alert, "");
     }
@@ -64,13 +66,13 @@ class NinjagoatDialog extends React.Component<{ dialogService:NinjagoatDialogSer
     }
 
     componentWillMount():void {
-        this.subscription = this.props.dialogService.subscribe(config => this.setState(config));
-        this.props.dialogService.observe(this.subject);
+        this.subscription = this.dialogService.subscribe(config => this.setState(config));
+        this.dialogService.observe(this.subject);
     }
 
     componentWillUnmount():void {
         if (this.subscription) this.subscription.dispose();
-        this.props.dialogService.dispose();
+        this.dialogService.dispose();
     }
 }
 
