@@ -23,7 +23,7 @@ class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogCon
         return this.setupDialog(DialogType.Confirm, message, title);
     }
 
-    display(key:string, data:any, message:string, title?:string):Promise<DialogStatus> {
+    display<TData>(key:string, data:TData, message:string, title?:string):Promise<DialogStatus> {
         return this.setupDialog(DialogType.Custom, message, title, data, key);
     }
 

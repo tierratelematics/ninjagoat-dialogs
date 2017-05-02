@@ -25,7 +25,7 @@ export interface IConfirmationService {
 }
 
 export interface ICustomDialogService {
-    display(key: string, data: any, message: string, title?: string): Promise<DialogStatus>;
+    display<TData>(key: string, data: TData, message: string, title?: string): Promise<DialogStatus>;
 }
 
 export class SimpleDialogService implements IDialogService {
@@ -34,7 +34,7 @@ export class SimpleDialogService implements IDialogService {
 
     confirm(message: string, title?: string): Promise<DialogStatus>;
 
-    display(key: string, data: any, message: string, title?: string): Promise<DialogStatus>;
+    display<TData>(key: string, data: TData, message: string, title?: string): Promise<DialogStatus>;
 }
 
 export class DialogsModule implements IModule {
@@ -89,7 +89,7 @@ export class NinjagoatDialogService implements IDialogService, IObservable<Dialo
 
     confirm(message: string, title?: string): Promise<DialogStatus>;
 
-    display(key: string, data: any, message: string, title?: string): Promise<DialogStatus>;
+    display<TData>(key: string, data: TData, message: string, title?: string): Promise<DialogStatus>;
 
     subscribe(observer: IObserver<DialogConfig<any>>): IDisposable
     subscribe(onNext?: (value: DialogConfig<any>) => void, onError?: (exception: any) => void, onCompleted?: () => void): IDisposable

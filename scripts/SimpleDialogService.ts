@@ -19,7 +19,7 @@ class SimpleDialogService implements IDialogService {
         });
     }
 
-    display(key:string, data:any, message:string, title?:string):Promise<DialogStatus> {
+    display<TData>(key:string, data:TData, message:string, title?:string):Promise<DialogStatus> {
         throw new Error("Not implemented");
     }
 
