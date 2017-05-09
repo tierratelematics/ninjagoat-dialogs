@@ -3,8 +3,8 @@ import {IViewModel} from "ninjagoat";
 import {injectable} from "inversify";
 
 @injectable()
-class DialogViewModel<T> implements IViewModel<T> {
-    "force nominal type for IViewModel": T;
+class DialogViewModel implements IViewModel<void> {
+    "force nominal type for IViewModel": void;
 
     private subject = new Rx.Subject<void>();
 

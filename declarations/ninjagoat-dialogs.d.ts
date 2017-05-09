@@ -75,8 +75,8 @@ export abstract class CustomDialog<T> extends React.Component<{dialog: DialogCon
 
 }
 
-export class DialogViewModel<T> implements IViewModel<T> {
-    "force nominal type for IViewModel": T;
+export class DialogViewModel implements IViewModel<void> {
+    "force nominal type for IViewModel": void;
 
     subscribe(observer: IObserver<void>): IDisposable
     subscribe(onNext?: (value: void) => void, onError?: (exception: any) => void, onCompleted?: () => void): Rx.IDisposable;
