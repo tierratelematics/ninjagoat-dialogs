@@ -1,10 +1,10 @@
-import {IObservable, IObserver, IDisposable} from "rx";
-import {IModule, IViewModel} from "ninjagoat";
-import {interfaces} from "inversify";
-import {IViewModelRegistry} from "ninjagoat";
-import {IServiceLocator} from "ninjagoat";
+import { IObservable, IObserver, IDisposable } from "rx";
+import { IModule, IViewModel } from "ninjagoat";
+import { interfaces } from "inversify";
+import { IViewModelRegistry } from "ninjagoat";
+import { IServiceLocator } from "ninjagoat";
 import * as React from "react";
-import {Dictionary} from "ninjagoat";
+import { Dictionary } from "ninjagoat";
 
 export enum DialogStatus {
     Confirmed,
@@ -61,7 +61,7 @@ declare enum DialogType {
     Custom
 }
 
-export class NinjagoatDialog extends React.Component<{templates?: Dictionary<interfaces.Newable<CustomDialog<any>>>}, DialogConfig<any>> implements IStatusUpdate {
+export class NinjagoatDialog extends React.Component<{ templates?: Dictionary<interfaces.Newable<CustomDialog<any>>> }, DialogConfig<any>> implements IStatusUpdate {
     confirm()
 
     reject()
@@ -71,7 +71,7 @@ export class NinjagoatDialog extends React.Component<{templates?: Dictionary<int
     render();
 }
 
-export abstract class CustomDialog<T> extends React.Component<{dialog: DialogConfig<T>, status: IStatusUpdate}, any> {
+export abstract class CustomDialog<T> extends React.Component<{ dialog: DialogConfig<T>, status: IStatusUpdate }, any> {
 
 }
 
@@ -79,7 +79,7 @@ export class DialogViewModel implements IViewModel<void> {
     "force nominal type for IViewModel": void;
 
     subscribe(observer: IObserver<void>): IDisposable
-    subscribe(onNext?: (value: void) => void, onError?: (exception: any) => void, onCompleted?: () => void): Rx.IDisposable;
+    subscribe(onNext?: (value: void) => void, onError?: (exception: any) => void, onCompleted?: () => void): IDisposable;
 
     dispose(): void
 }
