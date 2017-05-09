@@ -8,11 +8,6 @@ export default class ModelDialog<T extends DialogViewModel> extends CustomDialog
         this.setupPage(this.props);
     }
 
-    componentWillReceiveProps(props: any) {
-        this.viewmodel.dispose();
-        this.setupPage(props);
-    }
-
     componentWillUnmount() {
         if (this.viewmodel) this.viewmodel.dispose();
     }
