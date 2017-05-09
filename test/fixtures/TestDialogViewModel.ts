@@ -1,7 +1,7 @@
 import DialogViewModel from "../../scripts/components/DialogViewModel";
 import {Refresh} from "ninjagoat";
 
-export default class TestDialogViewModel extends DialogViewModel<number> {
+export default class TestDialogViewModel extends DialogViewModel {
     public state: number;
 
     public signalError() { 
