@@ -90,6 +90,38 @@ if (status === DialogStatus.Confirmed) {
 }
 ```
 
+## ViewModel Dialogs
+If your dialog has some interaction that requires changes to be reflected on both the model and the UI you can use the ModelDialog class, which binds to a special kind of ViewModel named DialogViewModel.
+In order to use it declare your model as a class extending from DialogViewModel, and use it as a standard ViewModel by applying the @Refresh decorator on it.
+
+```typescript
+class MyDialogViewModel extends DialogViewModel {
+    public updates: number = 0;
+     
+    @Refresh
+    public increment() {
+        this.updates++;
+    }
+}
+```
+once defined your ViewModel you can use the ModelDialog class in order to implement your own Dialog view
+
+```typescript
+class MyDialog extends ModelDialog<MyDialogViewModel> {
+
+    render() {
+        let status = this.props.status;
+        let dialog = this.props.dialog;
+        return (
+            <Modal show={dialog.open} onHide={status.cancel.bind(this.props.status)}>
+              <div>{this.viewmodel.updates}</div>
+              <button onClick={() => this.viewmodel.increment()}>Increment</button>
+            </Modal>
+        );
+    }
+}
+```
+
 ## License
 
 Copyright 2016 Tierra SpA

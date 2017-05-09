@@ -1,5 +1,5 @@
 import {IObservable, IObserver, IDisposable} from "rx";
-import {IModule} from "ninjagoat";
+import {IModule, IViewModel} from "ninjagoat";
 import {interfaces} from "inversify";
 import {IViewModelRegistry} from "ninjagoat";
 import {IServiceLocator} from "ninjagoat";
@@ -73,6 +73,19 @@ export class NinjagoatDialog extends React.Component<{templates?: Dictionary<int
 
 export abstract class CustomDialog<T> extends React.Component<{dialog: DialogConfig<T>, status: IStatusUpdate}, any> {
 
+}
+
+export class DialogViewModel implements IViewModel<void> {
+    "force nominal type for IViewModel": void;
+
+    subscribe(observer: IObserver<void>): IDisposable
+    subscribe(onNext?: (value: void) => void, onError?: (exception: any) => void, onCompleted?: () => void): Rx.IDisposable;
+
+    dispose(): void
+}
+
+export class ModelDialog<T extends DialogViewModel> extends CustomDialog<T> {
+    public viewmodel: T;
 }
 
 export interface IStatusUpdate {
