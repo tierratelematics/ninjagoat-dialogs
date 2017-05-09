@@ -1,5 +1,5 @@
 import {IObservable, IObserver, IDisposable} from "rx";
-import {IModule} from "ninjagoat";
+import {IModule, IViewModel} from "ninjagoat";
 import {interfaces} from "inversify";
 import {IViewModelRegistry} from "ninjagoat";
 import {IServiceLocator} from "ninjagoat";
@@ -25,7 +25,7 @@ export interface IConfirmationService {
 }
 
 export interface ICustomDialogService {
-    display(key: string, data: any, message: string, title?: string): Promise<DialogStatus>;
+    display<TData>(key: string, data: TData, message: string, title?: string): Promise<DialogStatus>;
 }
 
 export class SimpleDialogService implements IDialogService {
@@ -34,7 +34,7 @@ export class SimpleDialogService implements IDialogService {
 
     confirm(message: string, title?: string): Promise<DialogStatus>;
 
-    display(key: string, data: any, message: string, title?: string): Promise<DialogStatus>;
+    display<TData>(key: string, data: TData, message: string, title?: string): Promise<DialogStatus>;
 }
 
 export class DialogsModule implements IModule {
@@ -75,6 +75,19 @@ export abstract class CustomDialog<T> extends React.Component<{dialog: DialogCon
 
 }
 
+export class DialogViewModel implements IViewModel<void> {
+    "force nominal type for IViewModel": void;
+
+    subscribe(observer: IObserver<void>): IDisposable
+    subscribe(onNext?: (value: void) => void, onError?: (exception: any) => void, onCompleted?: () => void): Rx.IDisposable;
+
+    dispose(): void
+}
+
+export class ModelDialog<T extends DialogViewModel> extends CustomDialog<T> {
+    public viewmodel: T;
+}
+
 export interface IStatusUpdate {
     confirm();
     reject();
@@ -89,7 +102,7 @@ export class NinjagoatDialogService implements IDialogService, IObservable<Dialo
 
     confirm(message: string, title?: string): Promise<DialogStatus>;
 
-    display(key: string, data: any, message: string, title?: string): Promise<DialogStatus>;
+    display<TData>(key: string, data: TData, message: string, title?: string): Promise<DialogStatus>;
 
     subscribe(observer: IObserver<DialogConfig<any>>): IDisposable
     subscribe(onNext?: (value: DialogConfig<any>) => void, onError?: (exception: any) => void, onCompleted?: () => void): IDisposable
