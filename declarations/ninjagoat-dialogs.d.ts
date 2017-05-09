@@ -84,6 +84,10 @@ export class DialogViewModel implements IViewModel<void> {
     dispose(): void
 }
 
+export class ModelDialog<T extends DialogViewModel> extends CustomDialog<T> {
+    public viewmodel: T;
+}
+
 export interface IStatusUpdate {
     confirm();
     reject();
