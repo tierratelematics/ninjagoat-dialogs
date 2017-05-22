@@ -1,3 +1,7 @@
+# 1.3.0
+
+Use react as dependency
+
 # 1.2.2
 Fixed some refresh issue on ModelDialog
 
