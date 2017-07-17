@@ -1,6 +1,6 @@
 import CustomDialog from "../components/CustomDialog";
 import {interfaces} from "inversify";
 
-export interface ITemplateRetriever {
+export interface IDialogTemplateRetriever {
     of(key: string): interfaces.Newable<CustomDialog<any>>;
 }

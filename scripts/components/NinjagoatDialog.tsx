@@ -6,16 +6,16 @@ import DialogStatus from "../DialogStatus";
 import {DialogConfig, DialogType} from "../DialogConfig";
 import {Button} from "react-bootstrap";
 import IStatusUpdate from "../interfaces/IStatusUpdate";
-import {Dictionary, lazyInject} from "ninjagoat";
+import {lazyInject} from "ninjagoat";
 import * as _ from "lodash";
-import {ITemplateRetriever} from "../interfaces/ITemplateRetriever";
+import {IDialogTemplateRetriever} from "../interfaces/IDialogTemplateRetriever";
 
 class NinjagoatDialog extends React.Component<{}, DialogConfig<any>> implements IStatusUpdate {
 
     @lazyInject("IDialogService")
     private dialogService:NinjagoatDialogService;
-    @lazyInject("ITemplateRetriever")
-    private templateRetriever:ITemplateRetriever;
+    @lazyInject("IDialogTemplateRetriever")
+    private dialogTemplateRetriever:IDialogTemplateRetriever;
     private subscription:Rx.Disposable;
     private subject = new Rx.Subject<DialogStatus>();
 
@@ -27,7 +27,7 @@ class NinjagoatDialog extends React.Component<{}, DialogConfig<any>> implements 
     render() {
         let template;
         if (this.state.key) {
-            let Dialog = this.templateRetriever.of(this.state.key);
+            let Dialog = this.dialogTemplateRetriever.of(this.state.key);
             template = <Dialog dialog={this.state} status={this}/>;
         } else {
             template = <Modal show={this.state.open} onHide={this.cancel.bind(this)}>

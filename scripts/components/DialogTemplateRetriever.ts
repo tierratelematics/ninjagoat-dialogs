@@ -1,9 +1,9 @@
 import CustomDialog from "./CustomDialog";
 import {interfaces, inject, injectable} from "inversify";
-import {ITemplateRetriever} from "../interfaces/ITemplateRetriever";
+import {IDialogTemplateRetriever} from "../interfaces/IDialogTemplateRetriever";
 
 @injectable()
-export class TemplateRetriever implements ITemplateRetriever {
+export class DialogTemplateRetriever implements IDialogTemplateRetriever {
     constructor(@inject("Container") private container: interfaces.Container) {
     }
 

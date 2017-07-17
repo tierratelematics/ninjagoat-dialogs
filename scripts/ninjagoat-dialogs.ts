@@ -5,4 +5,4 @@ export {default as CustomDialog} from "./components/CustomDialog";
 export {default as DialogStatus} from "./DialogStatus";
 export {default as ModelDialog} from "./components/ModelDialog";
 export {default as DialogViewModel} from "./components/DialogViewModel";
-export {TemplateRetriever} from "./components/TemplateRetriever";
+export {DialogTemplateRetriever} from "./components/DialogTemplateRetriever";

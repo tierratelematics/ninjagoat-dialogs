@@ -71,7 +71,7 @@ export class NinjagoatDialog extends React.Component<{}, DialogConfig<any>> impl
     render();
 }
 
-export interface ITemplateRetriever {
+export interface IDialogTemplateRetriever {
     of(key: string): interfaces.Newable<CustomDialog<any>>;
 }
 
