@@ -61,7 +61,7 @@ declare enum DialogType {
     Custom
 }
 
-export class NinjagoatDialog extends React.Component<{ templates?: Dictionary<interfaces.Newable<CustomDialog<any>>> }, DialogConfig<any>> implements IStatusUpdate {
+export class NinjagoatDialog extends React.Component<{}, DialogConfig<any>> implements IStatusUpdate {
     confirm()
 
     reject()
@@ -69,6 +69,10 @@ export class NinjagoatDialog extends React.Component<{ templates?: Dictionary<in
     cancel()
 
     render();
+}
+
+export interface IDialogTemplateRetriever {
+    of(key: string): interfaces.Newable<CustomDialog<any>>;
 }
 
 export abstract class CustomDialog<T> extends React.Component<{ dialog: DialogConfig<T>, status: IStatusUpdate }, any> {
