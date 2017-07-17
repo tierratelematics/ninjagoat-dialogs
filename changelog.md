@@ -1,3 +1,6 @@
+# 2.0.0
+Add bind of template in the module's container
+
 # 1.4.0
 
 Bump to ninjagoat 2.4.0
