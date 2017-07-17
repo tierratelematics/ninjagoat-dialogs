@@ -72,7 +72,7 @@ class MyDialog extends CustomDialog<MyDialogModel> {
 Register it in your module.
 
 ```typescript
-this.container.bind<interfaces.Newable<CustomDialog<any>>>("DialogTemplate").to(MyDialog).whenTargetNamed("myDialog")
+this.container.bind<interfaces.Newable<CustomDialog<any>>>("DialogTemplate").toConstructor(MyDialog).whenTargetNamed("myDialog")
 ```
 
 And use it!
