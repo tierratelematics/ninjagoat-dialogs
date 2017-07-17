@@ -6,19 +6,20 @@ import DialogStatus from "../DialogStatus";
 import {DialogConfig, DialogType} from "../DialogConfig";
 import {Button} from "react-bootstrap";
 import IStatusUpdate from "../interfaces/IStatusUpdate";
-import CustomDialog from "./CustomDialog";
 import {Dictionary, lazyInject} from "ninjagoat";
 import * as _ from "lodash";
-import {interfaces} from "inversify";
+import {ITemplateRetriever} from "../interfaces/ITemplateRetriever";
 
-class NinjagoatDialog extends React.Component<{ templates?:Dictionary<interfaces.Newable<CustomDialog<any>>> }, DialogConfig<any>> implements IStatusUpdate {
+class NinjagoatDialog extends React.Component<{}, DialogConfig<any>> implements IStatusUpdate {
 
     @lazyInject("IDialogService")
     private dialogService:NinjagoatDialogService;
+    @lazyInject("ITemplateRetriever")
+    private templateRetriever:ITemplateRetriever;
     private subscription:Rx.Disposable;
     private subject = new Rx.Subject<DialogStatus>();
 
-    constructor(props:{ templates?:Dictionary<interfaces.Newable<CustomDialog<any>>> }) {
+    constructor(props: {}) {
         super(props);
         this.state = new DialogConfig<any>(DialogType.Alert, "");
     }
@@ -26,7 +27,7 @@ class NinjagoatDialog extends React.Component<{ templates?:Dictionary<interfaces
     render() {
         let template;
         if (this.state.key) {
-            let Dialog = this.props.templates[this.state.key];
+            let Dialog = this.templateRetriever.of(this.state.key);
             template = <Dialog dialog={this.state} status={this}/>;
         } else {
             template = <Modal show={this.state.open} onHide={this.cancel.bind(this)}>
