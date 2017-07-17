@@ -69,12 +69,10 @@ class MyDialog extends CustomDialog<MyDialogModel> {
 }
 ```
 
-Pass this template to the dialog component.
+Register it in your module.
 
 ```typescript
-<NinjagoatDialog templates={{
-    "myDialog": MyDialog
-}} />
+this.container.bind<interfaces.Newable<CustomDialog<any>>>("DialogTemplate").to(MyDialog).whenTargetNamed("myDialog")
 ```
 
 And use it!
