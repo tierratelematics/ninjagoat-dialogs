@@ -1,4 +1,9 @@
+# 2.0.1
+
+Move types into dev deps
+
 # 2.0.0
+
 Add bind of template in the module's container
 
 # 1.4.0
