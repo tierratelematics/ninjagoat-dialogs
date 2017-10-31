@@ -2,7 +2,7 @@
   "name": "ninjagoat-dialogs",
   "version": "2.0.1",
   "dependencies": {
-    "inversify": "~3.0.0-rc.2",
+    "inversify": "^4.3.0",
     "lodash": "~4.10.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
