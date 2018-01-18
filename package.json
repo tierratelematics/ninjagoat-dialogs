@@ -1,6 +1,6 @@
 {
   "name": "ninjagoat-dialogs",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "dependencies": {
     "inversify": "^4.3.0",
     "lodash": "~4.10.0",
@@ -19,7 +19,7 @@
     "expect.js": "~0.3.1"
   },
   "peerDependencies": {
-    "ninjagoat": "^2.4.0"
+    "ninjagoat": ">= 2.4.0 <= 3"
   },
   "scripts": {
     "test": "smild test"
