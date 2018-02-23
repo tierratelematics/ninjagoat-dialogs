@@ -4,26 +4,26 @@
   "dependencies": {
     "inversify": "^4.3.0",
     "lodash": "~4.10.0",
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1",
-    "react-bootstrap": "~0.30.7",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-bootstrap": "~0.32.1",
     "reflect-metadata": "~0.1.3",
     "rx": "~4.1.0"
   },
   "devDependencies": {
     "@types/lodash": "~4.14.44",
     "@types/node": "~6.0.52",
-    "@types/react": "^15.0.38",
+    "@types/react": "16.0.0",
     "@types/expect.js": "~0.3.29",
     "@types/mocha": "~2.2.34",
     "expect.js": "~0.3.1"
   },
   "peerDependencies": {
-    "ninjagoat": ">= 2.4.0 <= 3"
+    "ninjagoat": "^4.0.0"
   },
   "scripts": {
     "test": "smild test"
   },
-  "main": "dist/ninjagoat-dialogs.js",
-  "typings": "declarations/ninjagoat-dialogs.d.ts"
+  "main": "dist",
+  "typings": "dist"
 }

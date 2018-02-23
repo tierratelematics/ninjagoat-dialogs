@@ -1,6 +1,7 @@
+import { inject, injectable, interfaces } from "inversify";
+
+import { IDialogTemplateRetriever } from "../interfaces/IDialogTemplateRetriever";
 import CustomDialog from "./CustomDialog";
-import {interfaces, inject, injectable} from "inversify";
-import {IDialogTemplateRetriever} from "../interfaces/IDialogTemplateRetriever";
 
 @injectable()
 export class DialogTemplateRetriever implements IDialogTemplateRetriever {
