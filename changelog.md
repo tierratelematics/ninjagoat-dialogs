@@ -1,6 +1,7 @@
-# 3.0.0
+# 3.0.0 - 3.0.1
 
 Update React to v16
+Fix React types
 
 # 2.2.0
 
