@@ -1,7 +1,7 @@
 export { DialogType, DialogConfig } from "./DialogConfig";
 export { default as IStatusUpdate } from "./interfaces/IStatusUpdate";
 export { IDialogTemplateRetriever } from "./interfaces/IDialogTemplateRetriever";
-export { default as SimpleDialogService } from "../scripts/SimpleDialogService";
+export { default as SimpleDialogService } from "./SimpleDialogService";
 export { default as IAlertService } from "./interfaces/IAlertService";
 export { default as IConfirmationService } from "./interfaces/IConfirmationService";
 export { default as ICustomDialogService } from "./interfaces/ICustomDialogService";
