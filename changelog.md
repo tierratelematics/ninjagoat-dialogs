@@ -1,3 +1,7 @@
+# 4.0.1
+
+Fix ModelDialog viewmodel dispose
+
 # 4.0.0
 
 Remove react-boostrap dialog implementation
