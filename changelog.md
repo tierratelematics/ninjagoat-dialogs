@@ -1,3 +1,7 @@
+# 4.0.2
+
+Avoid components caching when rendering dialogs
+
 # 4.0.1
 
 Fix ModelDialog viewmodel dispose
