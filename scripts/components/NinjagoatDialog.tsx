@@ -23,7 +23,7 @@ class NinjagoatDialog extends React.Component<{}, DialogConfig<any>> implements 
     }
 
     render() {
-        if (this.state.key) {
+        if (this.state.key && this.state.open) {
             let Dialog = this.dialogTemplateRetriever.of(this.state.key);
             return <Dialog dialog={this.state} status={this}/>;
         } else {
