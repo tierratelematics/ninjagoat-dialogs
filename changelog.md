@@ -1,3 +1,7 @@
+# 2.2.1 
+
+Fix wrong viewmodel dispose on props update
+
 # 2.2.0
 
 Bump to ninjagoat 3.x

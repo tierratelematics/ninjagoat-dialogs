@@ -1,6 +1,6 @@
 {
   "name": "ninjagoat-dialogs",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "dependencies": {
     "inversify": "^4.3.0",
     "lodash": "~4.10.0",
