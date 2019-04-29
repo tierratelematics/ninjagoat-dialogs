@@ -1,39 +1,40 @@
 import IDialogService from "../interfaces/IDialogService";
 import DialogStatus from "../DialogStatus";
-import * as Rx from "rx";
 import {DialogConfig, DialogType} from "../DialogConfig";
 import {injectable} from "inversify";
+import {Observable, Observer, Subject, Subscribable, Subscription} from "rxjs";
+import {IDisposable} from "../../.yalc/ninjagoat/dist/viewmodels/IDisposable"; // FIXME
 
 @injectable()
-class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogConfig<any>>, Rx.IDisposable {
+class NinjagoatDialogService implements IDialogService, Subscribable<DialogConfig<any>>, IDisposable {
 
-    private subject = new Rx.Subject<DialogConfig<any>>();
-    private subscription:Rx.CompositeDisposable = new Rx.CompositeDisposable();
-    private observable:Rx.IObservable<DialogStatus>;
+    private subject = new Subject<DialogConfig<any>>();
+    private subscription: Subscription = new Subscription();
+    private observable: Observable<DialogStatus>;
 
-    observe(observable:Rx.IObservable<DialogStatus>) {
+    observe(observable: Observable<DialogStatus>) {
         this.observable = observable;
     }
 
-    alert(message:string, title?:string):Promise<DialogStatus> {
+    alert(message: string, title?: string): Promise<DialogStatus> {
         return this.setupDialog(DialogType.Alert, message, title);
     }
 
-    confirm(message:string, title?:string):Promise<DialogStatus> {
+    confirm(message: string, title?: string): Promise<DialogStatus> {
         return this.setupDialog(DialogType.Confirm, message, title);
     }
 
-    display<TData>(key:string, data:TData, message:string, title?:string):Promise<DialogStatus> {
+    display<TData>(key: string, data: TData, message: string, title?: string): Promise<DialogStatus> {
         return this.setupDialog(DialogType.Custom, message, title, data, key);
     }
 
-    private setupDialog(type:DialogType, message:string, title?:string, data?:any, key?:string):Promise<DialogStatus> {
+    private setupDialog(type: DialogType, message: string, title?: string, data?: any, key?: string): Promise<DialogStatus> {
         let config = new DialogConfig<any>(type, message);
         config.title = title;
         config.open = true;
         config.data = data;
         config.key = key;
-        this.subject.onNext(config);
+        this.subject.next(config);
         return new Promise((resolve, reject) => {
             if (this.observable)
                 this.subscription.add(this.observable.subscribe(status => resolve(status)));
@@ -42,14 +43,14 @@ class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogCon
         });
     }
 
-    dispose():void {
-        this.subscription.dispose();
-        this.subscription = new Rx.CompositeDisposable();
+    dispose(): void {
+        this.subscription.unsubscribe();
+        this.subscription = new Subscription();
     }
 
-    subscribe(observer:Rx.IObserver<DialogConfig<any>>):Rx.IDisposable
-    subscribe(onNext?:(value:DialogConfig<any>) => void, onError?:(exception:any) => void, onCompleted?:() => void):Rx.IDisposable
-    subscribe(observerOrOnNext?:(Rx.IObserver<DialogConfig<any>>) | ((value:DialogConfig<any>) => void), onError?:(exception:any) => void, onCompleted?:() => void):Rx.IDisposable {
+    subscribe(observer: Observer<DialogConfig<any>>): Subscription;
+    subscribe(onNext?: (value: DialogConfig<any>) => void, onError?: (exception: any) => void, onCompleted?: () => void): Subscription;
+    subscribe(observerOrOnNext?: (Observer<DialogConfig<any>>) | ((value: DialogConfig<any>) => void), onError?: (exception: any) => void, onCompleted?: () => void): Subscription {
         if (isObserver(observerOrOnNext))
             return this.subject.subscribe(observerOrOnNext);
         else
@@ -57,8 +58,8 @@ class NinjagoatDialogService implements IDialogService, Rx.IObservable<DialogCon
     }
 }
 
-function isObserver<T>(observerOrOnNext:(Rx.IObserver<T>) | ((value:T) => void)):observerOrOnNext is Rx.IObserver<T> {
-    return (<Rx.IObserver<T>>observerOrOnNext).onNext !== undefined;
+function isObserver<T>(observerOrOnNext: (Observer<T>) | ((value: T) => void)): observerOrOnNext is Observer<T> {
+    return (<Observer<T>>observerOrOnNext).next !== undefined;
 }
 
-export default NinjagoatDialogService
+export default NinjagoatDialogService;

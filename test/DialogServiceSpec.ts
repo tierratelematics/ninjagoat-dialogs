@@ -1,9 +1,9 @@
 import "reflect-metadata";
 import expect = require("expect.js");
-import * as Rx from "rx";
 import NinjagoatDialogService from "../scripts/components/NinjagoatDialogService";
 import DialogStatus from "../scripts/DialogStatus";
 import {DialogConfig, DialogType} from "../scripts/DialogConfig";
+import {of} from "rxjs";
 
 describe("DialogService, given a dialog", () => {
 
@@ -39,7 +39,7 @@ describe("DialogService, given a dialog", () => {
 
     context("after an action has been performed on it", () => {
         it("should send back the result", async() => {
-            subject.observe(Rx.Observable.just(DialogStatus.Confirmed));
+            subject.observe(of(DialogStatus.Confirmed));
             let status = await subject.alert("Test message");
             expect(status).to.be(DialogStatus.Confirmed);
         });

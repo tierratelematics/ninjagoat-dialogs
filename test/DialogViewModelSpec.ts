@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import expect = require("expect.js");
-import * as Rx from "rx";
 import TestDialogViewModel from "./fixtures/TestDialogViewModel";
+import {Subscription} from "rxjs";
 
 describe("DialogViewModel, given an instance", () => {
 
@@ -9,7 +9,7 @@ describe("DialogViewModel, given an instance", () => {
     let notifications: void[];
     let notificationError: any;
     let notificationsCompleted;
-    let subscription: Rx.IDisposable;
+    let subscription: Subscription;
 
     beforeEach(() => {
         notifications = [];

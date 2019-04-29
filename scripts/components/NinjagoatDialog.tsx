@@ -1,12 +1,12 @@
 import * as React from "react";
 import NinjagoatDialogService from "./NinjagoatDialogService";
-import * as Rx from "rx";
 import DialogStatus from "../DialogStatus";
 import {DialogConfig, DialogType} from "../DialogConfig";
 import IStatusUpdate from "../interfaces/IStatusUpdate";
 import {lazyInject} from "ninjagoat";
 import * as _ from "lodash";
 import {IDialogTemplateRetriever} from "../interfaces/IDialogTemplateRetriever";
+import {Subject, Subscription} from "rxjs";
 
 class NinjagoatDialog extends React.Component<{}, DialogConfig<any>> implements IStatusUpdate {
 
@@ -14,8 +14,8 @@ class NinjagoatDialog extends React.Component<{}, DialogConfig<any>> implements 
     private dialogService:NinjagoatDialogService;
     @lazyInject("IDialogTemplateRetriever")
     private dialogTemplateRetriever:IDialogTemplateRetriever;
-    private subscription:Rx.Disposable;
-    private subject = new Rx.Subject<DialogStatus>();
+    private subscription: Subscription;
+    private subject = new Subject<DialogStatus>();
 
     constructor(props: {}) {
         super(props);
@@ -45,7 +45,7 @@ class NinjagoatDialog extends React.Component<{}, DialogConfig<any>> implements 
 
     private closeDialog(status:DialogStatus) {
         this.setState(_.merge(this.state, {open: false}));
-        this.subject.onNext(status);
+        this.subject.next(status);
     }
 
     componentWillMount():void {
@@ -54,9 +54,9 @@ class NinjagoatDialog extends React.Component<{}, DialogConfig<any>> implements 
     }
 
     componentWillUnmount():void {
-        if (this.subscription) this.subscription.dispose();
+        if (this.subscription) this.subscription.unsubscribe();
         this.dialogService.dispose();
     }
 }
 
-export default NinjagoatDialog
+export default NinjagoatDialog;
