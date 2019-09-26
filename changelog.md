@@ -1,3 +1,7 @@
+# 5.0.0
+
+Update to material-ui v4
+
 # 4.0.2
 
 Avoid components caching when rendering dialogs
