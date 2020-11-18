@@ -1,6 +1,6 @@
 import DialogViewModel from "./DialogViewModel";
 import CustomDialog from "./CustomDialog";
-import ObservableViewModel from "ninjagoat/dist/observable/ObservableViewModel";
+import {ObservableViewModel} from "ninjagoat";
 
 export default class ModelDialog<T extends (DialogViewModel | ObservableViewModel<any>)> extends CustomDialog<T> {
     public viewmodel: T = this.props.dialog.data;
