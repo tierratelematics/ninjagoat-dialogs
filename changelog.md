@@ -1,3 +1,6 @@
+# 5.1.0
+ModelDialog may receive an observable viewmodel
+
 # 5.0.1
 
 Bump version
