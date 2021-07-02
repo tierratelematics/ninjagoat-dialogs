@@ -1,3 +1,14 @@
+# 5.1.0
+ModelDialog may receive an observable viewmodel
+
+# 5.0.1
+
+Bump version
+
+# 5.0.0
+
+Update to material-ui v4
+
 # 4.0.2
 
 Avoid components caching when rendering dialogs
