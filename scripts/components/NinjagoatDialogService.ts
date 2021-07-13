@@ -3,7 +3,7 @@ import DialogStatus from "../DialogStatus";
 import {DialogConfig, DialogType} from "../DialogConfig";
 import {injectable} from "inversify";
 import {Observable, Observer, Subject, Subscribable, Subscription} from "rxjs";
-import {IDisposable} from "../../.yalc/ninjagoat/dist/viewmodels/IDisposable"; // FIXME
+import {IDisposable} from "ninjagoat/dist/viewmodels/IDisposable";
 
 @injectable()
 class NinjagoatDialogService implements IDialogService, Subscribable<DialogConfig<any>>, IDisposable {
