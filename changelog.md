@@ -1,3 +1,7 @@
+# 6.0.0-rc.0
+
+Update to rxjs 6
+
 # 5.1.0
 ModelDialog may receive an observable viewmodel
 
